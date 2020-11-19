@@ -3,56 +3,35 @@ package com.tcs.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.tcs.dao.EmployeeRepository;
-import com.tcs.model.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.tcs.model.Employee;
+import com.tcs.repository.EmployeeRepository;
+
+@Service
 public class EmployeeService {
-	private EmployeeService() {
-		
-	}
+	@Autowired
+	EmployeeRepository employeeRepository;
 	
-	private static EmployeeService singleInstance = null;
-	
-	public static EmployeeService getInstance() {
-		if (singleInstance == null) {
-			singleInstance = new EmployeeService();
+	public String CreateEmployee(Employee emp) {
+		// TODO Auto-generated method stub
+		Employee tempEmp = null;
+		try {
+			tempEmp = employeeRepository.save(emp);
+			return "success";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "fail";
 		}
-		return singleInstance;
 	}
 	
-	public String addEmployee(Employee employee) {
-		EmployeeRepository dao = EmployeeRepository.getInstance();
-		String result = dao.addEmployee(employee);
-		return result;
+	public List<Employee> findByDepartmentId(Long departmentId){
+		return employeeRepository.findByDepartmentID(departmentId);
 	}
 	
-	public String updateEmployee(long id) {
-		EmployeeRepository dao = EmployeeRepository.getInstance();
-		String result = dao.updateEmployee(id);
-		return result;
-	}
-	
-	public String deleteEmployee(long id) {
-		EmployeeRepository dao = EmployeeRepository.getInstance();
-		String result = dao.deleteEmployee(id);
-		return result;
-	}
-	
-	public Optional<Employee> findById(long id){
-		EmployeeRepository dao = EmployeeRepository.getInstance();
-		Optional<Employee> result = dao.findById(id);
-		return result;
-	}
-	
-	public Optional<List<Employee>> getEmployees(){
-		EmployeeRepository dao = EmployeeRepository.getInstance();
-		Optional<List<Employee>> result = dao.getEmployees();
-		return result;
-	}
-	
-	public Optional<List<Employee>> findByOrganizaitonId(long id){
-		EmployeeRepository dao = EmployeeRepository.getInstance();
-		Optional<List<Employee>> result = dao.findByOrganizationId(id);
-		return result;
+	public Optional<Employee> findById(Long id){
+		return employeeRepository.findById(id);
 	}
 }

@@ -1,35 +1,24 @@
 package com.tcs.model;
 
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Department {
+	@Id
 	private long id;
+	@Column(name = "organization_id")
 	private long organizationId;
 	private String name;
-	public Department(long id, long organizationId, String name) {
-		super();
-		this.id = id;
-		this.organizationId = organizationId;
-		this.name = name;
-	}
-	public Department() {
-		super();
-	}
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public long getOrganizationId() {
-		return organizationId;
-	}
-	public void setOrganizationId(long organizationId) {
-		this.organizationId = organizationId;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	
 }

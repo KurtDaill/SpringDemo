@@ -3,58 +3,37 @@ package com.tcs.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.tcs.dao.DepartmentRepository;
-import com.tcs.dao.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.tcs.model.Department;
-import com.tcs.model.Employee;
+import com.tcs.repository.DepartmentRepository;
 
+@Service
 public class DepartmentService {
-	private DepartmentService() {
 	
-	}
-
-	private static DepartmentService singleInstance = null;
-
-	public static DepartmentService getInstance() {
-		if (singleInstance == null) {
-			singleInstance = new DepartmentService();
+	
+	@Autowired
+	DepartmentRepository departmentRepository;
+	
+	public String createProduct(Department dept) {
+		// TODO Auto-generated method stub
+		Department tempDept = null;
+		try {
+			tempDept = departmentRepository.save(dept);
+			return "success";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "fail";
 		}
-	return singleInstance;
 	}
-
-	public String addDepartment(Department department) {
-		DepartmentRepository dao = DepartmentRepository.getInstance();
-		String result = dao.addDepartment(department);
-		return result;
+	
+	public List<Department> findByOrganization(Long organizationId){
+		return departmentRepository.findByOrganization(organizationId);
 	}
-
-public String updateDepartment(long id) {
-	DepartmentRepository dao = DepartmentRepository.getInstance();
-	String result = dao.updateDepartment(id);
-	return result;
-}
-
-public String deleteEmployee(long id) {
-	DepartmentRepository dao = DepartmentRepository.getInstance();
-	String result = dao.deleteDepartment(id);
-	return result;
-}
-
-public Optional<Department> findById(long id){
-	DepartmentRepository dao = DepartmentRepository.getInstance();
-	Optional<Department> result = dao.findById(id);
-	return result;
-}
-
-public Optional<List<Department>> getEmployees(){
-	DepartmentRepository dao = DepartmentRepository.getInstance();
-	Optional<List<Department>> result = dao.getDepartment();
-	return result;
-}
-
-public Optional<List<Department>> findByOrganizaitonId(long id){
-	DepartmentRepository dao = DepartmentRepository.getInstance();
-	Optional<List<Department>> result = dao.findByOrganizationId(id);
-	return result;
-}
+	
+	public Optional<Department> findById(Long id){
+		return departmentRepository.findById(id);
+	}
 }

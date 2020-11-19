@@ -1,9 +1,24 @@
 package com.tcs.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Data;
 
+import java.util.List;
+import java.util.ArrayList;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@Table
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Organization {
+	@Id
 	private Long id;
 	private String name;
 	private String address;
